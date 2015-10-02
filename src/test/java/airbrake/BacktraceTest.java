@@ -7,14 +7,15 @@ package airbrake;
 import static airbrake.Exceptions.*;
 import static airbrake.Slurp.*;
 import static airbrake.ValidBacktraces.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
 import java.util.*;
 import java.util.regex.*;
 
-import org.apache.commons.lang.exception.*;
-import org.junit.*;
+import org.apache.commons.lang3.exception.*;
+import org.junit.Test;
 
 public class BacktraceTest {
 

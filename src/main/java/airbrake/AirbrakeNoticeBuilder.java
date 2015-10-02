@@ -17,6 +17,8 @@ public class AirbrakeNoticeBuilder {
 
 	private String environmentName;
 
+	private String appVersion;
+
 	private String errorMessage;
 
 	private Backtrace backtrace = new Backtrace(asList("backtrace is empty"));
@@ -39,33 +41,34 @@ public class AirbrakeNoticeBuilder {
 
 	private String component;
 
-	public AirbrakeNoticeBuilder(final String apiKey, final Backtrace backtraceBuilder, final Throwable throwable, final String env) {
-		this(apiKey, throwable.getMessage(), env);
+	public AirbrakeNoticeBuilder(final String apiKey, final Backtrace backtraceBuilder, final Throwable throwable, final String env, final String appVersion) {
+		this(apiKey, throwable.getMessage(), env, appVersion);
 		this.backtraceBuilder = backtraceBuilder;
 		errorClass(throwable);
 		backtrace(throwable);
 	}
 
 	public AirbrakeNoticeBuilder(final String apiKey, final String errorMessage) {
-		this(apiKey, errorMessage, "test");
+		this(apiKey, errorMessage, "test", null);
 	}
 
-	public AirbrakeNoticeBuilder(final String apiKey, final String errorMessage, final String env) {
+	public AirbrakeNoticeBuilder(final String apiKey, final String errorMessage, final String env, final String appVersion) {
 		apiKey(apiKey);
 		errorMessage(errorMessage);
 		env(env);
+		appVersion(appVersion);
 	}
 
 	public AirbrakeNoticeBuilder(final String apiKey, final Throwable throwable) {
-		this(apiKey, new Backtrace(), throwable, "test");
+		this(apiKey, new Backtrace(), throwable, "test", null);
 	}
 
-	public AirbrakeNoticeBuilder(final String apiKey, final Throwable throwable, final String env) {
-		this(apiKey, new Backtrace(), throwable, env);
+	public AirbrakeNoticeBuilder(final String apiKey, final Throwable throwable, final String env, final String appVersion) {
+		this(apiKey, new Backtrace(), throwable, env, appVersion);
 	}
 
-	public AirbrakeNoticeBuilder(final String apiKey, final Throwable throwable, final String projectRoot, final String env) {
-		this(apiKey, new Backtrace(), throwable, env);
+	public AirbrakeNoticeBuilder(final String apiKey, final Throwable throwable, final String projectRoot, final String env, final String appVersion) {
+		this(apiKey, new Backtrace(), throwable, env, appVersion);
 		projectRoot(projectRoot);
 	}
 
@@ -101,6 +104,10 @@ public class AirbrakeNoticeBuilder {
 
 	private void env(final String env) {
 		environmentName = env;
+	}
+
+	private void appVersion(String appVersion){
+		this.appVersion = appVersion;
 	}
 
 	/**
@@ -151,7 +158,7 @@ public class AirbrakeNoticeBuilder {
 	}
 
 	public AirbrakeNotice newNotice() {
-		return new AirbrakeNotice(apiKey, projectRoot, environmentName, errorMessage, errorClass, backtrace, request, session, environment, environmentFilters, hasRequest, url, component);
+		return new AirbrakeNotice(apiKey, projectRoot, environmentName, appVersion, errorMessage, errorClass, backtrace, request, session, environment, environmentFilters, hasRequest, url, component);
 	}
 
 	private boolean notDefined(final Object object) {

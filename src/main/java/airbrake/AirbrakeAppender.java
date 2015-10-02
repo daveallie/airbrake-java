@@ -50,7 +50,7 @@ public class AirbrakeAppender extends AppenderSkeleton {
 
 	public AirbrakeNotice newNoticeFor(final Throwable throwable) {
 		return new AirbrakeNoticeBuilderUsingFilteredSystemProperties(apiKey,
-				backtrace, throwable, env).newNotice();
+				backtrace, throwable, env, null).newNotice();
 	}
 
 	private int notifyThrowableIn(final LoggingEvent loggingEvent) {

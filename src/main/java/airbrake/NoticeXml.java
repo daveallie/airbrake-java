@@ -13,15 +13,15 @@ public class NoticeXml {
 
 	public NoticeXml(AirbrakeNotice notice) {
 
-		notice("2.2");
+		notice("2.3");
 		{
 			apikey(notice);
 
 			notifier();
 			{
 				name("airbrake-java");
-				version("2.2");
-				url("https://github.com/airbrake/airbrake-java");
+				version("2.3");
+				url("https://github.com/daveallie/airbrake-java");
 			}
 			end("notifier");
 
@@ -48,6 +48,7 @@ public class NoticeXml {
 			{
 				tag("project-root", notice.projectRoot());
 				tag("environment-name", notice.env());
+				tag("app-version", notice.appVersion());
 			}
 			end("server-environment");
 		}

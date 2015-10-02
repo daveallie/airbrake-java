@@ -7,8 +7,9 @@ package airbrake;
 import static airbrake.ApiKeys.*;
 import static airbrake.Exceptions.*;
 import static java.util.Arrays.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import java.util.*;
 
@@ -84,7 +85,7 @@ public class AirbrakeNoticeTest {
 
 	@Test
 	public void testNewAirbrakeUsingBuilderNoticeWithBacktraceWithHost_shouldUseTheHost() {
-		final AirbrakeNotice notice = new AirbrakeNoticeBuilder(API_KEY, ERROR_MESSAGE, "test") {
+		final AirbrakeNotice notice = new AirbrakeNoticeBuilder(API_KEY, ERROR_MESSAGE, "test", null) {
 			{
 				backtrace(BACKTRACE);
 			}

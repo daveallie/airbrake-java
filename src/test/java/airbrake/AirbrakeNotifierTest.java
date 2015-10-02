@@ -8,8 +8,8 @@ import static airbrake.ApiKeys.*;
 import static airbrake.Exceptions.*;
 import static airbrake.Slurp.*;
 import static java.util.Arrays.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
 
 import java.util.*;
 
@@ -94,7 +94,7 @@ public class AirbrakeNotifierTest {
 	@Test
 	public void testNotifyToairbrakeUsingBuilderNoticeFromExceptionInEnv() {
 		final Exception EXCEPTION = newException(ERROR_MESSAGE);
-		final AirbrakeNotice notice = new AirbrakeNoticeBuilder(API_KEY, EXCEPTION, "test").newNotice();
+		final AirbrakeNotice notice = new AirbrakeNoticeBuilder(API_KEY, EXCEPTION, "test", "1.0.0").newNotice();
 
 		assertThat(notifier.notify(notice), is(200));
 	}
@@ -102,7 +102,7 @@ public class AirbrakeNotifierTest {
 	@Test
 	public void testNotifyToairbrakeUsingBuilderNoticeFromExceptionInEnvAndSystemProperties() {
 		final Exception EXCEPTION = newException(ERROR_MESSAGE);
-		final AirbrakeNotice notice = new AirbrakeNoticeBuilder(API_KEY, EXCEPTION, "test") {
+		final AirbrakeNotice notice = new AirbrakeNoticeBuilder(API_KEY, EXCEPTION, "test", null) {
 			{
 				filteredSystemProperties();
 			}
@@ -114,7 +114,7 @@ public class AirbrakeNotifierTest {
 
 	@Test
 	public void testNotifyToairbrakeUsingBuilderNoticeInEnv() {
-		final AirbrakeNotice notice = new AirbrakeNoticeBuilder(API_KEY, ERROR_MESSAGE, "test").newNotice();
+		final AirbrakeNotice notice = new AirbrakeNoticeBuilder(API_KEY, ERROR_MESSAGE, "test", null).newNotice();
 
 		assertThat(notifier.notify(notice), is(200));
 	}
@@ -122,7 +122,7 @@ public class AirbrakeNotifierTest {
 	@Test
 	public void testSendExceptionNoticeWithFilteredBacktrace() {
 		final Exception EXCEPTION = newException(ERROR_MESSAGE);
-		final AirbrakeNotice notice = new AirbrakeNoticeBuilder(API_KEY, new QuietRubyBacktrace(), EXCEPTION, "test").newNotice();
+		final AirbrakeNotice notice = new AirbrakeNoticeBuilder(API_KEY, new QuietRubyBacktrace(), EXCEPTION, "test", null).newNotice();
 
 		assertThat(notifier.notify(notice), is(200));
 	}
@@ -138,7 +138,7 @@ public class AirbrakeNotifierTest {
 	@Test
 	public void testSendExceptionToairbrakeUsingRubyBacktrace() {
 		final Exception EXCEPTION = newException(ERROR_MESSAGE);
-		final AirbrakeNotice notice = new AirbrakeNoticeBuilder(API_KEY, new RubyBacktrace(), EXCEPTION, "test").newNotice();
+		final AirbrakeNotice notice = new AirbrakeNoticeBuilder(API_KEY, new RubyBacktrace(), EXCEPTION, "test", null).newNotice();
 
 		assertThat(notifier.notify(notice), is(200));
 	}
@@ -146,7 +146,7 @@ public class AirbrakeNotifierTest {
 	@Test
 	public void testSendExceptionToairbrakeUsingRubyBacktraceAndFilteredSystemProperties() {
 		final Exception EXCEPTION = newException(ERROR_MESSAGE);
-		final AirbrakeNotice notice = new AirbrakeNoticeBuilderUsingFilteredSystemProperties(API_KEY, new RubyBacktrace(), EXCEPTION, "test").newNotice();
+		final AirbrakeNotice notice = new AirbrakeNoticeBuilderUsingFilteredSystemProperties(API_KEY, new RubyBacktrace(), EXCEPTION, "test", null).newNotice();
 
 		assertThat(notifier.notify(notice), is(200));
 	}

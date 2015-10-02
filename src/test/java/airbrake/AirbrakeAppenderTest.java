@@ -4,12 +4,14 @@
 
 package airbrake;
 
+import org.junit.Test;
+
 import static airbrake.ApiKeys.*;
 import static airbrake.Exceptions.*;
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
-
-import org.junit.*;
+import static org.hamcrest.CoreMatchers.hasItem;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertNotNull;
 
 public class AirbrakeAppenderTest {
 
@@ -19,7 +21,7 @@ public class AirbrakeAppenderTest {
 
 		final AirbrakeNotice notice = appender.newNoticeFor(newException(ERROR_MESSAGE));
 
-		assertThat(notice, is(notNullValue()));
+		assertNotNull(notice);
 	}
 
 	@Test
@@ -28,7 +30,7 @@ public class AirbrakeAppenderTest {
 
 		final AirbrakeNotice notice = appender.newNoticeFor(newException(ERROR_MESSAGE));
 
-		assertThat(notice, is(notNullValue()));
+		assertNotNull(notice);
 	}
 
 	@Test

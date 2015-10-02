@@ -10,9 +10,18 @@ import org.apache.log4j.*;
 
 public class AirbrakeNoticeBuilderUsingFilteredSystemProperties extends AirbrakeNoticeBuilder {
 
-	public AirbrakeNoticeBuilderUsingFilteredSystemProperties(final String apiKey, final Backtrace backtraceBuilder, final Throwable throwable, final String env) {
-		super(apiKey, backtraceBuilder, throwable, env);
+	public AirbrakeNoticeBuilderUsingFilteredSystemProperties(final String apiKey, final Backtrace backtraceBuilder, final Throwable throwable, final String env, final String appVersion) {
+		super(apiKey, backtraceBuilder, throwable, env, appVersion);
 		environment(System.getProperties());
+		addMDCToSession();
+		standardEnvironmentFilters();
+		ec2EnvironmentFilters();
+	}
+
+	public AirbrakeNoticeBuilderUsingFilteredSystemProperties(final String apiKey, final Backtrace backtraceBuilder, final Throwable throwable, final String url, final String component, final String env, final String appVersion) {
+		super(apiKey, backtraceBuilder, throwable, env, appVersion);
+		environment(System.getProperties());
+		setRequest(url, component);
 		addMDCToSession();
 		standardEnvironmentFilters();
 		ec2EnvironmentFilters();

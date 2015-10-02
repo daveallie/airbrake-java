@@ -4,8 +4,8 @@
 
 package airbrake;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
 
 import org.junit.*;
 
@@ -54,7 +54,7 @@ public class NoticeApiXmlTest {
 
 	@Test
 	public void testNoticeVersion() {
-		assertThat(xml(new NoticeXml(notice)), containsString("notice version=2.2"));
+		assertThat(xml(new NoticeXml(notice)), containsString("notice version=2.3"));
 	}
 
 	@Test
@@ -69,12 +69,12 @@ public class NoticeApiXmlTest {
 
 	@Test
 	public void testNotifierUrl() {
-		assertThat(xml(new NoticeXml(notice)), containsString("<url><![CDATA[https://github.com/airbrake/airbrake-java]]></url>"));
+		assertThat(xml(new NoticeXml(notice)), containsString("<url><![CDATA[https://github.com/daveallie/airbrake-java]]></url>"));
 	}
 
 	@Test
 	public void testNotifierVersion() {
-		assertThat(xml(new NoticeXml(notice)), containsString("<version><![CDATA[2.2]]></version>"));
+		assertThat(xml(new NoticeXml(notice)), containsString("<version><![CDATA[2.3]]></version>"));
 	}
 
 	private String xml(NoticeXml noticeApi) {

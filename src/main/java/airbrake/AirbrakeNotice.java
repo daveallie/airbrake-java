@@ -20,6 +20,8 @@ public class AirbrakeNotice {
 
 	private String environmentName;
 
+	private String appVersion;
+
 	private final Map<String, Object> environment = new TreeMap<String, Object>();
 
 	private Map<String, Object> request = new TreeMap<String, Object>();
@@ -34,11 +36,12 @@ public class AirbrakeNotice {
 
 	private final String component;
 
-	public AirbrakeNotice(final String apiKey, String projectRoot, String environmentName, final String errorMessage, String errorClass, final Backtrace backtrace, final Map<String, Object> request, final Map<String, Object> session, final Map<String, Object> environment,
+	public AirbrakeNotice(final String apiKey, String projectRoot, String environmentName, String appVersion, final String errorMessage, String errorClass, final Backtrace backtrace, final Map<String, Object> request, final Map<String, Object> session, final Map<String, Object> environment,
 			final List<String> environmentFilters, boolean hasRequest, String url, String component) {
 		this.apiKey = apiKey;
 		this.projectRoot = projectRoot;
 		this.environmentName = environmentName;
+		this.appVersion = appVersion;
 		this.errorClass = errorClass;
 		this.errorMessage = errorMessage;
 		this.backtrace = backtrace;
@@ -64,6 +67,10 @@ public class AirbrakeNotice {
 
 	public String env() {
 		return environmentName;
+	}
+
+	public String appVersion() {
+		return appVersion;
 	}
 
 	public Map<String, Object> environment() {

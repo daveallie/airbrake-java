@@ -1,8 +1,8 @@
 package airbrake;
 
 import static airbrake.ApiKeys.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
 
 import org.junit.*;
 
@@ -16,7 +16,7 @@ public class NoticeApiXmlBuilderTest {
 
 	@Before
 	public void setUp() {
-		productionNoticeBuilder = new AirbrakeNoticeBuilder(API_KEY, newThrowable(), "<blink>production</blink>");
+		productionNoticeBuilder = new AirbrakeNoticeBuilder(API_KEY, newThrowable(), "<blink>production</blink>", null);
 	}
 
 	@Test
